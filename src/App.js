@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Footer from "./components/footer";
+import Header from "./components/header";
+import Table from "./components/table";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 
 function App() {
+  const downloadPdf = () => {
+    var doc = new jsPDF();
+    autoTable(doc, "#app");
+    doc.save("table.pdf");
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App" id="app">
+      <Header />
+      <Table />
+      <Footer />
+      <div>
+        <button onClick={downloadPdf} className="bg-blue-600" text="white">
+          download
+        </button>
+      </div>
     </div>
   );
 }
